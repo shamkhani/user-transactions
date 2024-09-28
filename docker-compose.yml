@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    networks:
+    - my-networks
+  mysql:
+    image: mysql:8
+    volumes:
+      - mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - "3306:3306"
+    networks:
+      - my-networks
+  php:
+    build:
+      context: ./
+      dockerfile: devops/Dockerfile
+    volumes:
+      - ./:/var/www
+    environment:
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    command: /bin/bash
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - my-networks
+
+volumes:
+  mysql:
+networks:
+  my-networks:
+    name: my-networks
+    driver: bridge
