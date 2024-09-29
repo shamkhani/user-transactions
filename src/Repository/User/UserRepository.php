@@ -20,6 +20,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function getAll(): array
     {
+        //TODO: Add Pagination 
         $users = [];
         $stmt = $this->dbConnection->prepare("SELECT * FROM users");
         $stmt->execute();

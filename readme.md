@@ -9,7 +9,6 @@
 ## Manua Installation
 
 1. Clone the repository.
-2. Create a MySQL database named `credit_report_service`.
 3. Run the SQL schema commands to create the required tables.
 4. Run `composer install` to install dependencies.
 5. Rename `.env.example` to `.env`.
@@ -23,7 +22,11 @@
 ## Docker Installation
 
 1. Rename `.env.example` to `.env`.
-2. Run `docker composer up --build` to start project
+2. Update `.env` with your MySQL credentials.
+3. Run `docker composer up --build` to start project
+4. Create a MySQL database named `credit_report_service`.
+5. Run the SQL schema commands to create the required tables.
+
 
 ## Testing
 
